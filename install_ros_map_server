@@ -1,0 +1,13 @@
+#firstly ,generate the .rosinstall file by using rosinstall_generator command in the root #directory of catkin
+
+rosinstall_generator map_server --deps --tar>melodic-map_server.rosinstall
+
+#the use the wstool to install
+
+wstool update -t src
+
+##if ERROR comes out: ERROR in config:/XXXX/XXX/XXX/src has no workspace configuration #file '.rosinstall' , the src shuold be initiate firstly, then using this command instead
+
+wstool init src melodic-map_server.rosinstall
+
+#done!
