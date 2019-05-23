@@ -1,2 +1,2 @@
 # nots_scripts
-Recording practice
+Recording notes and scripts
