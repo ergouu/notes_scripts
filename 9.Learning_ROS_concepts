@@ -1,0 +1,75 @@
+#Copy From ROS wiki
+#What is ROS
+
+P2P network of processes, distributed across machines.
+
+A Robot frameworks, loosely coupled.
+
+synchronous RPC-style(Remote Procedure Call) over services, asynchronous streaming of data over topics, storage of data on a Parameter Server.
+
+#Goals
+
+Primary goal is to support code reuse in robotics research and development.
+
+Processes(aka Nodes) ,grouped into Packages and Stacks, which is easily to be distributed and shared.
+
+Already implemented in Python ,C++ ,and Lisp.
+
+#Concepts
+
+Three level concepts: the Filesystem level, the Computation Graph level, and the Community level.
+
+In addition to the three levels of concepts, ROS also defines two types of name : Package Resource Name and Graph Resource Name.
+
+1. ROS Filesystem Level
+
+Mainly cover ROS resources that you encounter on disk (or file).
+
+Packages: main unit for organizing software in ROS, which may contain ROS runtime processes(nodes) ,a ROS-dependent library, datasets, configuration files, or anything that is useful organized together. Most atomic and granular thing build and release. Every packages should have three files in its top-level directory: CMakeLists.txt, package.xml, Makefile(For all new packages, Makefile should contains just one line to invoke CMake:"include $(shell rospack find mk)/cmake.mk").
+
+
+Metapackages: are specialized Packages which only serve a represent of a group of related other packages.
+
+Package Manifests: Manifests(package.xml) provide metadata about a package, include its name, version, description, license information ,dependencies ,and other meta information like exported packages. Defined in "http://www.ros.org/reps/rep-0127.html".
+
+Repositories: commom VCS(version control system) system.
+
+Message(msg) tpyes: define the data structures for messages sent in ROS, stored in my_package/msg/MymessageType.msg.
+
+Service(srv) tpyes: define the request and respone data structures for services in ROS, stored in my_package/srv/MyServiceType.srv.
+
+2.ROS Computation Graph Level
+
+P2P network of ROS processes that processing data together. The basic Computation Graph concepts of ROS are nodes, Master, Parameter Server, messages, services, topics, and bags, all of which provide data to Graph in different ways. Implemented in ros_comm repository.
+
+Nodes: Processes perform computation. Node is written with the use of a ROS client library(a collection of code, which let programmers to write nodes, publish or subscribe to topics, write and call service, and use Parameter Server), such as roscpp(http://wiki.ros.org/roscpp) and rospy(http://wiki.ros.org/rospy).
+
+Master: Provide name registration(topics and services registration) and lookup to the rest of the Computation Graph. Without the Master ,nodes would not be able to find each other and exchange messages, or invoke services.Act as a nameservice(like a DNS server) in the ROS Computation Graph.
+
+Parameter Server: Currently part of the Master, stored data by key in a central location.
+
+Messages: A data structure, which nodes use to communicate each other by passing messages. Support arbitrarily nested structures and arrays.
+
+Topics: A name to identify the content of the message. The publish/subscribe system routed the messages by the publishers send out a message to a given topic, and the subscribers interested in this kind of data get a message from it without the publishers and subscribers don't know each others. There may be multiple  concurrent publishers and subscribers to a single topic.
+
+Services: Request/Reply is done via services, which are defined by a pair of message structures, which is often used in a distribute system. CS(Client/Server) structure, defined under a name.
+
+Bags: A format for saving and playing ROS message data, which can be played later for testing and researching.
+
+Nodes connect to each other directly; the Master only provides lookup information; the most common protocol used in a ROS is called TCPROS, using standard TCP/IP sockets.
+
+3.ROS Community Level
+
+The community enable separate communities to exchange software and knowledge.
+
+4.Name
+
+4.1 Graph Resource Names
+
+Provides a hierarchical naming structure for all resources. Each resource is defined within a namespace, which it share with many other resources, and resolved relatively. This simplifies programming as nodes that work together can be written as if they are in top level namespace, and they can be push down by change the environment variates while integrating together, if the code isn't written by using global names.
+
+Any name within a ROS node can be remapped when the node is already launched at the CLI.
+
+4.2 Package Resource Names
+
+Just the name of the Package that the resource is in and plus the name of the resource. Some of the ROS-relative files may be referred to using package resource name such as: msg tpye, srv type ,node type. This is very similar to file path but much shorter.
