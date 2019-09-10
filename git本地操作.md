@@ -1,8 +1,11 @@
 ergouudeMacBook:practice ergouu$ git init                                                                  -----初始化本地版本库
+
 Initialized empty Git repository in /Users/ergouu/Documents/code/practice/.git/
 
 ergouudeMacBook:practice ergouu$ git remote add origin https://github.com/ergouu/practise.git               ---联接到远程仓库
+
 ergouudeMacBook:practice ergouu$ git push -u origin master                                                  -------push上去，干嘛用的不知道
+
 Enumerating objects: 36, done.
 Counting objects: 100% (36/36), done.
 Delta compression using up to 4 threads
@@ -23,19 +26,27 @@ ergouudeMacBook:practice ergouu$ vi README
 ergouudeMacBook:practice ergouu$ 
 ergouudeMacBook:practice ergouu$ 
 ergouudeMacBook:practice ergouu$ 
+
 ergouudeMacBook:practice ergouu$ git diff      								----应该是compare一下
+
 diff --git a/README b/README
 index 66bfca1..79dcd00 100644
 --- a/README
 +++ b/README
 @@ -1 +1,2 @@
+
  # Practise
 +A1107 is the PAT problem
+
 ergouudeMacBook:practice ergouu$ git add -A     							-----track文件
+
 ergouudeMacBook:practice ergouu$ git commit -m "update README"     					-----提交到本地
+
 [master 949d672] update README
  1 file changed, 1 insertion(+)
+ 
 ergouudeMacBook:practice ergouu$ git push origin master       						-------然后Push到远程
+
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 4 threads
@@ -57,7 +68,9 @@ ergouudeMacBook:practice ergouu$ ls
 A1107	README	in.log	test
 ergouudeMacBook:practice ergouu$ ll
 -bash: ll: command not found
+
 ergouudeMacBook:practice ergouu$ git checkout -b mess     						-----新建一个叫MESS的Branch
+
 Switched to a new branch 'mess'
 ergouudeMacBook:practice ergouu$ git branch
   master
@@ -87,7 +100,9 @@ ergouudeMacBook:practice ergouu$ git branch
 ergouudeMacBook:practice ergouu$ git branch
   master
 * mess
+
 ergouudeMacBook:practice ergouu$ git reset --hard       						--------版本回退，其实也不知道是干嘛的
+
 HEAD is now at 18836fa add a new branch nemed mess
 ergouudeMacBook:practice ergouu$ git branch
   master
@@ -138,7 +153,9 @@ nothing to commit, working tree clean
 ergouudeMacBook:practice ergouu$ git branch
 * master
   mess
+  
 ergouudeMacBook:practice ergouu$ git push origin master         					---------所以还是提交不上去
+
 To https://github.com/ergouu/practise.git
  ! [rejected]        master -> master (non-fast-forward)
 error: failed to push some refs to 'https://github.com/ergouu/practise.git'
@@ -146,7 +163,9 @@ hint: Updates were rejected because the tip of your current branch is behind
 hint: its remote counterpart. Integrate the remote changes (e.g.
 hint: 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
 ergouudeMacBook:practice ergouu$ git pull origin master          					----------从远程拿下来，合并
+
 From https://github.com/ergouu/practise
  * branch            master     -> FETCH_HEAD
 Updating 949d672..48c2bb8
@@ -164,7 +183,9 @@ ergouudeMacBook:practice ergouu$ git branch -a
 ergouudeMacBook:practice ergouu$ git branch 
 * master
   mess
+  
 ergouudeMacBook:practice ergouu$ git push origin master        						----------可以PUSH了
+
 Everything up-to-date
 ergouudeMacBook:practice ergouu$ git checkout -D mess
 error: unknown switch `D'
@@ -195,6 +216,7 @@ usage: git checkout [<options>] <branch>
     --progress            force progress reporting
 
 ergouudeMacBook:practice ergouu$ git branch -D mess        						--------将本地的MESS库去掉
+
 Deleted branch mess (was 18836fa).
 ergouudeMacBook:practice ergouu$ ls
 A1107	README	in.log	test
@@ -231,7 +253,9 @@ ergouudeMacBook:PAT ergouu$ echo "# TEST">README
 ergouudeMacBook:PAT ergouu$ ls
 README
 ergouudeMacBook:PAT ergouu$ cat README 
+
 # TEST
+
 ergouudeMacBook:PAT ergouu$ git checkout -b PAT
 Switched to a new branch 'PAT'
 ergouudeMacBook:PAT ergouu$ git branch
@@ -303,6 +327,7 @@ ergouudeMacBook:practice ergouu$ git checkout master
 Switched to branch 'master'
 Your branch is up to date with 'origin/master'.
 ergouudeMacBook:practice ergouu$ git merge PAT     						-------将PATmerge到master里面去，要先切换到master的BRANCH，再去Merge才有用，但Merge后，在网页上还能再看到PAT的Branch
+
 Updating 48c2bb8..70a7024
 Fast-forward
  PAT/README | 1 +
@@ -312,7 +337,9 @@ ergouudeMacBook:practice ergouu$ git push origin master
 Total 0 (delta 0), reused 0 (delta 0)
 To https://github.com/ergouu/practise.git
    48c2bb8..70a7024  master -> master
+   
 ergouudeMacBook:practice ergouu$ git branch -d PAT     					   	-------看下面一行命令
+
 Deleted branch PAT (was 70a7024).
 ergouudeMacBook:practice ergouu$ git push origin master
 Everything up-to-date
@@ -324,7 +351,9 @@ ergouudeMacBook:practice ergouu$ git branch -a     						--------本地删除了
   remotes/origin/PAT
   remotes/origin/master
   remotes/origin/mess
+  
 ergouudeMacBook:practice ergouu$ git remote prune origin      		----------删除远程网页已经删除的Branch，也就是说，MESS在网页上删除了，但在本地用git branch -a还是能看到，用这个命令就可以删除掉
+
 Pruning origin
 URL: https://github.com/ergouu/practise.git
  * [pruned] origin/mess
@@ -351,7 +380,9 @@ On branch master
 Your branch is up to date with 'origin/master'.
 
 nothing to commit, working tree clean
+
 ergouudeMacBook:practice ergouu$ git push origin --delete PAT        ---------从客户端直接将远程的PAT分支删除，并且在网页上也看不到想关的分支了
+
 To https://github.com/ergouu/practise.git
  - [deleted]         PAT
 ergouudeMacBook:practice ergouu$ 
