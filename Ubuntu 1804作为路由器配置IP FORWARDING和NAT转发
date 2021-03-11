@@ -1,0 +1,10 @@
+配置nat
+首先需要先开启系统的转发功能，打开 /etc/sysctl.conf, 在文件的最后加入
+
+net.ipv4.ip_forward=1
+执行 sysctl -p 使它生效。然后通过 iptables 来设置nat。
+
+# 内网去外网的nat转发 ens18是wan口网卡名称
+# 因为默认路由是从ens18出网，所以可以直接这么设置
+# 路由路径可以使用 route -n查看
+iptables -t nat -A POSTROUTING -o ens18 -j MASQUERADE
